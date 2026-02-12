@@ -2,10 +2,7 @@
   "name": "mathpro-app",
   "version": "1.0.0",
   "type": "module",
-  "description": "MathPro - Handwritten math and text renderer for ChatGPT",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "description": "MathPro - Handwritten math renderer for ChatGPT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.20.2",
     "@modelcontextprotocol/ext-apps": "^1.0.1",

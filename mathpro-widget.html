@@ -18,8 +18,6 @@ h2{margin:0 0 12px;font-size:1.2rem}
 </div>
 
 <script type="module">
-// ── MCP Apps Bridge ──
-// This listens for messages from ChatGPT
 let rpcId = 0;
 const pendingRequests = new Map();
 
@@ -39,7 +37,6 @@ window.addEventListener("message", (event) => {
   const msg = event.data;
   if (!msg || msg.jsonrpc !== "2.0") return;
 
-  // Handle responses to our requests
   if (typeof msg.id === "number") {
     const pending = pendingRequests.get(msg.id);
     if (!pending) return;
@@ -49,16 +46,12 @@ window.addEventListener("message", (event) => {
     return;
   }
 
-  // Handle notifications from ChatGPT (tool results)
   if (msg.method === "ui/notifications/tool-result") {
     const content = msg.params?.structuredContent?.content;
-    if (content) {
-      renderHandwriting(content);
-    }
+    if (content) renderHandwriting(content);
   }
 }, { passive: true });
 
-// Initialize the bridge
 async function initBridge() {
   try {
     await rpcRequest("ui/initialize", {
@@ -73,18 +66,12 @@ async function initBridge() {
 }
 initBridge();
 
-// ── Render Function ──
-// This is where our handwriting magic happens
-// For now it shows the text - we'll replace with full MathPro engine later
 function renderHandwriting(content) {
   const status = document.querySelector('.status');
   const output = document.getElementById('output');
   status.textContent = 'Rendering...';
-  
-  // PLACEHOLDER: This will be replaced with the full MathPro rendering engine
-  // (font loading, MathJax, SVG text, freehand strokes, etc.)
-  output.innerHTML = '<p style="font-family:cursive;font-size:18px;line-height:1.8;padding:16px;background:#fffef5;border-radius:8px;border:1px solid #e0dcc8">' 
-    + content.replace(/\n/g, '<br>') 
+  output.innerHTML = '<p style="font-family:cursive;font-size:18px;line-height:1.8;padding:16px;background:#fffef5;border-radius:8px;border:1px solid #e0dcc8">'
+    + content.replace(/\n/g, '<br>')
     + '</p>';
   status.textContent = 'Rendered! (placeholder - full engine coming soon)';
 }
