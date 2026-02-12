@@ -10,7 +10,8 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { z } from "zod";
 
 // Read the widget HTML file (our handwriting renderer)
-const widgetHtml = readFileSync("public/mathpro-widget.html", "utf8");
+const widgetHtml = readFileSync("mathpro-widget.html", "utf8");
+
 
 function createMathProServer() {
   const server = new McpServer({ name: "mathpro-app", version: "1.0.0" });
